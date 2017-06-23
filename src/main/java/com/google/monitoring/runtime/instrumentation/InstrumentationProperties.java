@@ -9,10 +9,12 @@ public interface InstrumentationProperties {
 
     // PROPERTY NAMES
     String RECORDER_PROPERTY = "recorder";
-    String RECORD_SIZE_PROPERTY = "record.size";
     String OUTPUT_PATH_PROPERTY = "output.file";
     String VERBOSITY_LEVEL_PROPERTY = "stack.trace.verbosity";
 
+    String VARIABLE_WIDTH_PROPERTY = "variable.width";
+
+    String RECORD_SIZE_PROPERTY = "record.size";
     String SAMPLE_STRATEGY_PROPERTY = "sample.strategy";
     String DELAY_SECS_PROPERTY = "sample.delay.secs";
     String SAMPLE_RATE_PROPERTY = "sample.rate";
@@ -21,10 +23,12 @@ public interface InstrumentationProperties {
 
     // DEFAULTS
     String DEFAULT_RECORDER = "flame";
-    boolean DEFAULT_RECORD_SIZE = true;
     String DEFAULT_OUTPUT_PATH = "/tmp/stacks.txt";
     EventParser.VerbosityLevel DEFAULT_VERBOSITY_LEVEL = EventParser.VerbosityLevel.METHOD_CLASS_NAME;
 
+    int DEFAULT_VARIABLE_WIDTH = 214;
+
+    boolean DEFAULT_RECORD_SIZE = true;
     String DEFAULT_SAMPLE_STRATEGY = "allocationCount";
     long DEFAULT_DELAY_SECS = 0L;
     long DEFAULT_SAMPLE_RATE = 10_000L;
@@ -33,10 +37,12 @@ public interface InstrumentationProperties {
 
     // ACCESS METHODS
     String recorder();
-    boolean recordSize();
     String outputPath();
     EventParser.VerbosityLevel verbosityLevel();
 
+    int variableWidth();
+
+    boolean recordSize();
     String sampleStrategy();
     long delaySecs();
     long sampleRate();

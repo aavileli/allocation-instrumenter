@@ -13,10 +13,12 @@ import java.util.Properties;
 public class InstrumentationPropertiesImpl implements InstrumentationProperties {
 
     private final String recorder;
-    private final boolean recordSize;
     private final String outputPath;
     private final EventParser.VerbosityLevel verbosityLevel;
 
+    private final int variableWidth;
+
+    private final boolean recordSize;
     private final String sampleStrategy;
     private final long delaySecs;
     private final long sampleRate;
@@ -26,10 +28,12 @@ public class InstrumentationPropertiesImpl implements InstrumentationProperties 
         final Properties properties = loadProperties(filePath);
 
         recorder = loadString(properties, RECORDER_PROPERTY, DEFAULT_RECORDER);
-        recordSize = loadBoolean(properties, RECORD_SIZE_PROPERTY, DEFAULT_RECORD_SIZE);
         outputPath = loadString(properties, OUTPUT_PATH_PROPERTY, DEFAULT_OUTPUT_PATH);
         verbosityLevel = loadVerbosity(properties, VERBOSITY_LEVEL_PROPERTY, DEFAULT_VERBOSITY_LEVEL);
 
+        variableWidth = loadInt(properties, VARIABLE_WIDTH_PROPERTY, DEFAULT_VARIABLE_WIDTH);
+
+        recordSize = loadBoolean(properties, RECORD_SIZE_PROPERTY, DEFAULT_RECORD_SIZE);
         sampleStrategy = loadString(properties, SAMPLE_STRATEGY_PROPERTY, DEFAULT_SAMPLE_STRATEGY);
         delaySecs = loadLong(properties, DELAY_SECS_PROPERTY, DEFAULT_DELAY_SECS);
         sampleRate = loadLong(properties, SAMPLE_RATE_PROPERTY, DEFAULT_SAMPLE_RATE);
@@ -54,6 +58,15 @@ public class InstrumentationPropertiesImpl implements InstrumentationProperties 
         final String value = properties.getProperty(propertyName);
         if (value != null){
             return value;
+        } else {
+            return defaultValue;
+        }
+    }
+
+    private static int loadInt(final Properties properties, final String propertyName, final int defaultValue){
+        final String value = properties.getProperty(propertyName);
+        if (value != null){
+            return Integer.parseInt(value);
         } else {
             return defaultValue;
         }
@@ -113,6 +126,11 @@ public class InstrumentationPropertiesImpl implements InstrumentationProperties 
     @Override
     public EventParser.VerbosityLevel verbosityLevel() {
         return verbosityLevel;
+    }
+
+    @Override
+    public int variableWidth() {
+        return variableWidth;
     }
 
     @Override
